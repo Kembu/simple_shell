@@ -1,4 +1,3 @@
-shell_loop.c
 #include "shell.h"
 
 /**
@@ -43,93 +42,15 @@ int hsh(info_t *info, char **av)
 	}
 	return (builtin_ret);
 }
-
 /**
- * find_builtin - 
-
-/**
- * fork_cmd - forks a an exec thread to run cmd
- * @info: the parameter & return info struct
- *
- * Return: void
- */
-void fork_cmd(info_t *info)
-{
-	pid_t child_pid;
-
-	child_pid = fork();
-	if (child_pid == -1)
-	{
-		/* TODO: PUT ERROR FUNCTION */
-		perror("Error:");
-		return;
-	}
-	if (child_pid == 0)
-	{
-		if (execve(info->info(info, 1);
-			if (errno == EACCES)
-				exit(126);
-			exit(1);
-		}
-		/* TODO: PUT ERROR FUNCTION */
-	}
-	else
-	{
-		wait(&(info->status));
-		if (WIFEXITED(info->status))
-		{
-			info->status = WEXITSTATUS(info->status);
-			if (info->status == 126)
-				print_error(info, "Permission denied\n");
-		}
-	}
-}finds a builtin command
+ * find_builtin - finds a builtin command
  * @info: the parameter & return info struct
  *
  * Return: -1 if builtin not found,
  *			0 if builtin executed successfully,
  *			1 if builtin found but not successful,
  *			-2 if builtin signals exit()
- *TH
- * @info: the parameter & return info struct
- *
- * Return: void
  */
-void find_cmd(info_t *info)
-{
-	char *path = NULL;
-	int i, k;
-
-	info->path = info->argv[0];
-	if (info->linecount_flag == 1)
-	{
-		info->line_count++;
-		info->linecount_flag = 0;
-	}
-	for (i = 0, k = 0; info->arg[i]; i++)
-		if (!is_delim(info->arg[i], " \t\n"))
-			k++;
-	if (!k)
-		return;
-
-	path = find_path(info, _getenv(info, "PATH="), info->argv[0]);
-	if (path)
-	{
-		info->path = path;
-		fork_cmd(info);
-	}
-	else
-	{
-		if ((interactive(info) || _getenv(info, "PATH=")
-			|| info->argv[0][0] == '/') && is_cmd(info, info->argv[0]))
-			fork_cmd(info);
-		else if (*(info->arg) != '\n')
-		{
-			info->status = 127;
-			print_error(info, "not found\n");
-		}
-	}
-}/
 int find_builtin(info_t *info)
 {
 	int i, built_in_ret = -1;
@@ -154,7 +75,6 @@ int find_builtin(info_t *info)
 		}
 	return (built_in_ret);
 }
-
 /**
  * find_cmd - finds a command in PATH
  * @info: the parameter & return info struct
@@ -177,7 +97,6 @@ void find_cmd(info_t *info)
 			k++;
 	if (!k)
 		return;
-
 	path = find_path(info, _getenv(info, "PATH="), info->argv[0]);
 	if (path)
 	{
@@ -196,7 +115,6 @@ void find_cmd(info_t *info)
 		}
 	}
 }
-
 /**
  * fork_cmd - forks a an exec thread to run cmd
  * @info: the parameter & return info struct
